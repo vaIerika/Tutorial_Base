@@ -6,12 +6,14 @@
 
 ### ⚙️ Coordinator
 
-**Articles: **
+**Articles:**
 
-1. Paul Hudson, [How to use the Coordinator pattern in iOS](https://www.hackingwithswift.com/articles/71/how-to-use-the-coordinator-pattern-in-ios-apps)
+1. Paul Hudson, [How to use the Coordinator pattern in iOS](https://www.hackingwithswift.com/articles/71/how-to-use-the-coordinator-pattern-in-ios-apps).
 
 **HOWTOs**
+
 *Install*
+
 1. Create a `Coordinator` class that contains an array of child coordinators and navigation controller property, as well as starting method that instantiate the 1st view controller in SceneDelegate (or AppDelegate). Use protocol for bigger apps.
 
 ```swift
@@ -25,7 +27,7 @@
 ...
 ```
 
-2. To identify and instantiate any view controllers in the coordinator use protocol extension.
+2. To identify and instantiate view controllers in the coordinator use a protocol extension.
 
 ```swift
 protocol Storyboarded {
@@ -74,7 +76,8 @@ class MainCoordinator: Coordinator {
 
 </br>
 
-*Move between controllers*
+*Move between controllers and pass data*
+
 1. Use `coordinator's` method to move the required view controller.
 ```swift
 @IBAction func createAccount(_ sender: Any) {
@@ -82,7 +85,6 @@ class MainCoordinator: Coordinator {
 }
 ```
 
-*Pass data between controllers*
 2. Add data as a parameter to the method in the coordinator.
 ```swift
 func buySubscription(to productType: Int) {
