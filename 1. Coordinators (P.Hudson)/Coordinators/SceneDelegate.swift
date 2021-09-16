@@ -8,16 +8,19 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    var coordinator: MainCoordinator?
     var window: UIWindow?
-
+    var coordinator: MainCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let navigationContoller = UINavigationController()
-        coordinator = MainCoordinator(navigationController: navigationContoller)
-        coordinator?.start()
+        //let navigationContoller = UINavigationController()
+        //coordinator = MainCoordinator(navigationController: navigationContoller)
+        //coordinator?.start()
         
-        window?.rootViewController = navigationContoller
+        /// without tab bar
+        //window?.rootViewController = navigationContoller
+        
+        /// tab view controller is the main coordinator
+        window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
         
     }

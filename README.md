@@ -9,6 +9,7 @@
 **Articles:**
 
 1. Paul Hudson, [How to use the Coordinator pattern in iOS](https://www.hackingwithswift.com/articles/71/how-to-use-the-coordinator-pattern-in-ios-apps).
+2. Paul Hudson, [Advanced coordinators in iOS](https://www.hackingwithswift.com/articles/175/advanced-coordinator-pattern-tutorial-ios).
 
 **HOWTOs**
 
@@ -97,8 +98,91 @@ func buySubscription(to productType: Int) {
 
 </br>
 
+*Use several coordinators*
+
+1. Add new coordinator classes, conformed to `Coordinator` protocol.
+
+2. Move the implementation of the method from that instantiate required view controller from the main coordinator to the new one as a starting method, change type of coordinator for that view controller.
+
+3. Add to the main coordinator a new coordinator as a child.
+
+```swift
+func buySubscription() {
+    let child = BuyCoordinator(navigationController: navigationController)
+    childCoordinators.append(child)
+    child.start()
+}
+```
+
+</br>
+
 *Move back*
+
+ - Option 1 for simple projects.
+
+ 1. Check if the view controller is disappear with the `viewWillDisappear` method, call a function `coordinator.didFinishBuying()` of the coordinator.
+
+ 2. Child coordinator calls a parent method `parentCoordinator?.childDidFinish(self)`, sending itself. The `parentCoordinator` has to be `weak` optional.
+
+ 3. Main coordinator removes that child from the `childCoordinators`. Coordinator must to be conform to AnyObject (so it cannot be a struct).
+ ```swift
+ func childDidFinish(_ child: Coordinator?) {
+     for (index, coordinator) in childCoordinators.enumerated() {
+         if coordinator === child {
+             childCoordinators.remove(at: index)
+             break
+         }
+     }
+ }
+ ```
+
+ - Option 2 for more complicated projects.
+
+ 1. Conform the main coordinator to the `UINavigationControllerDelegate` protocol, as well as to inherit from `NSObject`. Add a delegate to the starting method: `navigationController.delegate = self `.
+
+ 2. Add a method in the main coordinator to move back.
+ ```swift
+ func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+     guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {  return }
+
+     // pushing vc on the top rather than popping it
+     if navigationController.viewControllers.contains(fromViewController) {
+         return
+     }
+
+     // popping vc, typecasting
+     if let buyViewController = fromViewController as? BuyViewController {
+         childDidFinish(buyViewController.coordinator)
+     }
+ }
+```
 
 </br>
 
 *Combine with TabBar*
+
+1. Create a main TabBarController with properties for the each of the coordinators that are used inside its tabs.
+
+2. Instantiate view controllers with calling starting methods of the coordinators and appending their navigation controllers in `MainTabBarController`.
+```swift
+class MainTabBarController: UITabBarController {
+
+    /// tabs
+    let mainCoordinator = MainCoordinator(navigationController: UINavigationController())
+    let historyCoordinator = HistoryCoordinator(navigationController: UINavigationController())
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        mainCoordinator.start()
+        historyCoordinator.start()
+        viewControllers = [mainCoordinator.navigationController, historyCoordinator.navigationController]    /// has to have TabBarItems
+    }
+}
+```
+
+3. Give each coordinator a tab bar item in a starting method: `viewContoller.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)`.
+
+4. Change the root view controller with the created TabBarController: ` window?.rootViewController = MainTabBarController()`.
+Attemp 2signatures 
+</br>

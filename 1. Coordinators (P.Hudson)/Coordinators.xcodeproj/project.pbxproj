@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B83F603226F34A9C0076CDC4 /* BuyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F603126F34A9C0076CDC4 /* BuyCoordinator.swift */; };
+		B83F603426F36DED0076CDC4 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F603326F36DED0076CDC4 /* MainTabBarController.swift */; };
+		B83F603726F3725E0076CDC4 /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F603626F3725E0076CDC4 /* HistoryCoordinator.swift */; };
+		B83F603926F373150076CDC4 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F603826F373150076CDC4 /* HistoryViewController.swift */; };
 		B8CDA84D26F205D500D45814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDA84C26F205D500D45814 /* AppDelegate.swift */; };
 		B8CDA84F26F205D500D45814 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDA84E26F205D500D45814 /* SceneDelegate.swift */; };
 		B8CDA85126F205D500D45814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDA85026F205D500D45814 /* ViewController.swift */; };
@@ -21,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B83F603126F34A9C0076CDC4 /* BuyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCoordinator.swift; sourceTree = "<group>"; };
+		B83F603326F36DED0076CDC4 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		B83F603626F3725E0076CDC4 /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
+		B83F603826F373150076CDC4 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		B8CDA84926F205D500D45814 /* Coordinators.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coordinators.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8CDA84C26F205D500D45814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8CDA84E26F205D500D45814 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B83F603526F370000076CDC4 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				B83F603326F36DED0076CDC4 /* MainTabBarController.swift */,
+			);
+			path = TabBarController;
+			sourceTree = "<group>";
+		};
 		B8CDA84026F205D500D45814 = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +84,7 @@
 			children = (
 				B8CDA84C26F205D500D45814 /* AppDelegate.swift */,
 				B8CDA84E26F205D500D45814 /* SceneDelegate.swift */,
+				B83F603526F370000076CDC4 /* TabBarController */,
 				B8CDA86B26F2155C00D45814 /* Coordinator */,
 				B8CDA86A26F2154F00D45814 /* Controllers */,
 				B8CDA86C26F2157100D45814 /* Extensions */,
@@ -85,6 +102,7 @@
 				B8CDA86626F20A7900D45814 /* BuyViewController.swift */,
 				B8CDA86826F20A8300D45814 /* CreateAccountViewController.swift */,
 				B8CDA85026F205D500D45814 /* ViewController.swift */,
+				B83F603826F373150076CDC4 /* HistoryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -94,6 +112,8 @@
 			children = (
 				B8CDA86026F2061800D45814 /* Coordinator.swift */,
 				B8CDA86426F207A800D45814 /* MainCoordinator.swift */,
+				B83F603126F34A9C0076CDC4 /* BuyCoordinator.swift */,
+				B83F603626F3725E0076CDC4 /* HistoryCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -176,7 +196,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B83F603226F34A9C0076CDC4 /* BuyCoordinator.swift in Sources */,
 				B8CDA86126F2061800D45814 /* Coordinator.swift in Sources */,
+				B83F603426F36DED0076CDC4 /* MainTabBarController.swift in Sources */,
+				B83F603926F373150076CDC4 /* HistoryViewController.swift in Sources */,
 				B8CDA86526F207A800D45814 /* MainCoordinator.swift in Sources */,
 				B8CDA85126F205D500D45814 /* ViewController.swift in Sources */,
 				B8CDA86326F2067A00D45814 /* Storyboarded.swift in Sources */,
@@ -184,6 +207,7 @@
 				B8CDA84D26F205D500D45814 /* AppDelegate.swift in Sources */,
 				B8CDA86726F20A7900D45814 /* BuyViewController.swift in Sources */,
 				B8CDA84F26F205D500D45814 /* SceneDelegate.swift in Sources */,
+				B83F603726F3725E0076CDC4 /* HistoryCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

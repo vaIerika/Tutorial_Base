@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="71" translatesAutoresizingMaskIntoConstraints="NO" id="FDo-VF-35w">
-                                <rect key="frame" x="141" y="382.5" width="132" height="131"/>
+                                <rect key="frame" x="141" y="331.5" width="132" height="233"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KmR-Zz-3pC">
                                         <rect key="frame" x="40" y="0.0" width="52" height="30"/>
@@ -26,8 +26,15 @@
                                             <action selector="buyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B1z-eO-whC"/>
                                         </connections>
                                     </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TXM-kT-GI6">
+                                        <rect key="frame" x="1.5" y="101" width="129" height="32"/>
+                                        <segments>
+                                            <segment title="UIKit"/>
+                                            <segment title="SwiftUI"/>
+                                        </segments>
+                                    </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l58-xm-T4J">
-                                        <rect key="frame" x="0.0" y="101" width="132" height="30"/>
+                                        <rect key="frame" x="0.0" y="203" width="132" height="30"/>
                                         <state key="normal" title="Create Account 📂"/>
                                         <connections>
                                             <action selector="createAccountButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IRo-nm-uSL"/>
@@ -43,6 +50,9 @@
                             <constraint firstItem="FDo-VF-35w" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="PkO-lz-r3Z"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="product" destination="TXM-kT-GI6" id="Oe7-P3-vPL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -101,6 +111,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O12-Ow-LJz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1503" y="94"/>
+        </scene>
+        <!--History View Controller-->
+        <scene sceneID="cQr-3u-4HO">
+            <objects>
+                <viewController storyboardIdentifier="HistoryViewController" id="Yod-Se-F4F" customClass="HistoryViewController" customModule="Coordinators" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WgT-LL-m1d">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3s-vc-tBD">
+                                <rect key="frame" x="179.5" y="437.5" width="55" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dvy-Kr-2bR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Z3s-vc-tBD" firstAttribute="centerX" secondItem="WgT-LL-m1d" secondAttribute="centerX" id="rgi-Ym-8Un"/>
+                            <constraint firstItem="Z3s-vc-tBD" firstAttribute="centerY" secondItem="WgT-LL-m1d" secondAttribute="centerY" id="sJ5-j5-hy6"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C9F-qM-gk5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2452" y="94"/>
         </scene>
     </scenes>
     <resources>
