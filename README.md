@@ -6,12 +6,7 @@
 
 ### ⚙️ Coordinator
 
-**Articles:**
-
-1. Paul Hudson, [How to use the Coordinator pattern in iOS](https://www.hackingwithswift.com/articles/71/how-to-use-the-coordinator-pattern-in-ios-apps).
-2. Paul Hudson, [Advanced coordinators in iOS](https://www.hackingwithswift.com/articles/175/advanced-coordinator-pattern-tutorial-ios).
-
-**HOWTOs**
+**HOWTOs:**
 
 *Install*
 
@@ -184,5 +179,128 @@ class MainTabBarController: UITabBarController {
 3. Give each coordinator a tab bar item in a starting method: `viewContoller.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)`.
 
 4. Change the root view controller with the created TabBarController: ` window?.rootViewController = MainTabBarController()`.
-Attemp 2signatures 
+
 </br>
+
+**Articles:**
+
+1. Paul Hudson, [How to use the Coordinator pattern in iOS](https://www.hackingwithswift.com/articles/71/how-to-use-the-coordinator-pattern-in-ios-apps).
+2. Paul Hudson, [Advanced coordinators in iOS](https://www.hackingwithswift.com/articles/175/advanced-coordinator-pattern-tutorial-ios).
+
+</br>
+</br>
+
+## Strategies 🎯
+
+### 💉 Dependency Injection
+
+
+**Usage:**
+
+Moving the responsibility of injecting the dependencies to the class creating the new module:
+
+- Initializer-based DI: `init(_ di: Dependency) { ... }`.
+- Property-based DI: assign properties after initializing it.
+
+Moving the responsibility to own types:
+
+- Factory classes: `let basketViewController = factory.makeBasketViewController()`
+- Service locator pattern: generic solution.
+
+</br>
+
+**Service locator pattern**
+
+*Resolver*
+- resolves the actual implementation for a type, by creating an instance of a class, using the configuration of the *Container*.
+
+```swift
+protocol Resolver {
+    func resolve<ServiceType>(_ type: ServiceType.Type) -> ServiceType
+}
+```
+
+
+*Service Factory*
+- a generic factory to create instances.
+
+```swift
+protocol ServiceFactory {
+    associatedtype ServiceType
+    func resolve(_ resolver: Resolver) -> ServiceType
+}
+
+struct BasicServiceFactory<ServiceType>: ServiceFactory {
+    private let factory: (Resolver) -> ServiceType
+
+    init(_ type: ServiceType.Type, factory: @escaping (Resolver) -> ServiceType) {
+        self.factory = factory
+    }
+
+    func resolve(_ resolver: Resolver) -> ServiceType {
+        return factory(resolver)
+    }
+}
+
+extension ServiceFactory {
+    func supports<T>(_ type: T.Type) -> Bool {
+        return type == ServiceType.self
+    }
+}
+```
+
+*Container*
+- stores the configuration on how to create instances of the registered types.
+- allows to register new factories for a certain type.
+- stores *Service Factory* instances.
+- is used as a *Resolver* for any stored type.
+
+```swift
+struct Container: Resolver {
+    let factories: [AnyServiceFactory]
+
+    init() {
+        self.factories = []
+    }
+
+    private init(factories: [AnyServiceFactory]) {
+        self.factories = factories
+    }
+
+    func register<T>(_ interface: T.Type, instance: T) -> Container {
+        return register(interface) { _ in instance }
+    }
+
+    func register<ServiceType>(_ type: ServiceType.Type, _ factory: @escaping (Resolver) -> ServiceType) -> Container {
+        assert(!factories.contains(where: { $0.supports(type) }))
+
+        let newFactory = BasicServiceFactory<ServiceType>(type, factory: { resolver in
+            factory(resolver)
+        })
+        return .init(factories: factories + [AnyServiceFactory(newFactory)])
+    }
+
+    func resolve<ServiceType>(_ type: ServiceType.Type) -> ServiceType {
+        guard let factory = factories.first(where: { $0.supports(type) }) else {
+            fatalError("No suitable factory found")
+        }
+        return factory.resolve(self)
+    }
+
+    func factory<ServiceType>(for type: ServiceType.Type) -> () -> ServiceType {
+        guard let factory = factories.first(where: { $0.supports(type) }) else {
+            fatalError("No suitable factory found")
+        }
+        return { factory.resolve(self) }
+    }
+}
+```
+
+
+
+
+</br>
+
+**Articles:**
+
+1. Stefan Kofler, [Dependency Injection Strategies in Swift](https://quickbirdstudios.com/blog/swift-dependency-injection-service-locators/).
